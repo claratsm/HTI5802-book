@@ -1,0 +1,32 @@
+--- 
+title: "Algorithms in Bioinformatics and Genomics"
+author: "Clara Tang"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+---
+
+# Welcome {-}
+
+Welcome to the book for practical sections of [HTI5802: Algorithms in Bioinformatics and Genomics](). Most contents are demonstrated with PLINK and R programming language.
+
+This book is designed as a collection of R Markdown notebooks, as supplementary to the lecture notes for GWAS and sequence interpretation of HTI5802 at PolyU.
+
+1. [Genomewide association analysis (GWAS)]() (2025-02-17)
+2. [Variant interpretation for clinical sequencing]() (2025-03-10)
+
+Note: Most contents may be updated before or right after the lectures, so please refer to the updated version.
+
+GitHub Repository: you can find the source files on [claratsm/HTI5802-book](https://github.com/claratsm/HTI5802-book) and the way to re-build this book.
+
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
