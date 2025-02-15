@@ -67,11 +67,11 @@ It contains no header line and each line describes a single marker with 4 column
 > 5. A1 allele (Default: minor allele)
 > 6. A2 allele (Default: major allele)
 
-:green_book: **Q1:** How many SNPs are there?
+📗 **Q1:** How many SNPs are there?
 ```bash
 wc -l chrAll.ASA.bim
 ```
-:green_book: **Q2:** Where are these SNPs located?
+📗 **Q2:** Where are these SNPs located?
 ```bash
 cut -f 1 chrAll.ASA.bim | sort | uniq -c
 ```
@@ -91,9 +91,9 @@ It has no header line, and one line per sample with 6 columns:
 > 5. Sex (1=male; 2=female; 0=unknown)<br>
 > 6. Phenotype (1=control, 2=case, -9 / 0=missing for case-control; numeric for quantitative trait)<br>
 
-:green_book: **Q3:** How many samples are there?
+📕 **Q3:** How many samples are there?
 
-:green_book: **Q4:** Any sample belongs to the same family?
+📕 **Q4:** Any sample belongs to the same family?
 
 
 ## Quality control protocol
@@ -168,7 +168,7 @@ main="Sample Call Rate", xlab="F_MISS", ylab="Number of samples",ylim=c(0,10))
 ![practical2 missing-hist1](https://user-images.githubusercontent.com/8644480/170830897-4eb7a450-bc51-42ea-b68b-bf5ea98197ab.png)
 ![practical2 missing-hist2](https://user-images.githubusercontent.com/8644480/170830900-ef75c54a-ba80-4393-9c77-7502ac7c319a.png)
 
-:closed_book: **Q:** Can you try to plot the right number of excluded samples?<br>
+❓**Q.** Can you try to plot the right number of excluded samples?<br>
 <details>
   <summary> Try your own R codes </summary>
 <p></p>
@@ -250,7 +250,7 @@ In addition to poor sample or genotyping quality, X chromosome aneuploidy, such 
 ```bash
 ~/plink --bfile chrAll.ASA --check-sex ycount 0.2 0.8 805 0 --out chrXY.ASA.without-ycount
 ```
-:closed_book: **Q:** Do the samples detected by sex discrepancy or abnormal heterogenity look like having X chromosome aneuploidy?
+❓ **Q.** Do the samples detected by sex discrepancy or abnormal heterogenity look like having X chromosome aneuploidy?
 <details>
   <summary> Try your own PLINK / R codes </summary>
 <p></p>
@@ -288,7 +288,7 @@ abline(h=0.8, lwd=2, lty=2, col="blue")
 ~/plink --bfile chrAll.ASA --check-sex ycount 0.2 0.8 100 700 --out chrXY.ASA.with-ycount
 egrep -h PROBLEM chrXY.ASA.without-ycount.sexcheck chrXY.ASA.with-ycount.sexcheck | sort | uniq -u
 ```
-:closed_book: **Q5:** What is the most likely karyotype for the **id2_669** sample and what disease may he/she have?
+📕 **Q5:** What is the most likely karyotype for the **id2_669** sample and what disease may he/she have?
 
   
 - QC: Record the sample IDs with sex discrepancy problem for removal
@@ -363,7 +363,7 @@ egrep -wf to-remove.mind02.iid chr1-22.ASA.maf05.pruned.IBDcheck.genome | sort -
 ```bash
 egrep -wf to-remove.het3D.iid chr1-22.ASA.maf05.pruned.IBDcheck.genome | sort --key 10 -gr | less
 ```
-:closed_book: **Q6:** Which sample(s) looks like having contamination?
+📗 **Q6:** Which sample(s) looks like having contamination?
 
 - Check the IBD0, IBD1, IBD2 and PI_hat for other samples
 ```bash
@@ -371,7 +371,7 @@ cat to-remove.*indiv | sort | uniq > to-remove.QC_steps1to3.indiv
 cut -d' ' -f 2 to-remove.QC_steps1to3.indiv > to-remove.QC_steps1to3.iid
 egrep -wvf to-remove.QC_steps1to3.iid chr1-22.ASA.maf05.pruned.IBDcheck.genome | sort --key 10 -gr | less
 ```
-:closed_book: **Q7:** How are the samples in CHSQUAD family related?
+📗 **Q7:** How are the samples in CHSQUAD family related?
 
 - For those pairs of sample estimated to be closer than second degree kinship (PI_HAT>0.25), remove at least one sample (usually the one with lower call rate) per pair.
 <pre>cat > to-remove.related.indiv
@@ -410,8 +410,8 @@ Rscript practical2.PCAplot.R merged.chrAll.ASA.1000G.rm-mind02_related.pruned.ei
 ```
 <img src="https://github.com/user-attachments/assets/99cd3381-082f-4d30-bb7c-6b5236316683" width=500>
 
-:closed_book: **Q.** Can you find the population outliers?<br>
-:closed_book: **Q.** Can you relate the results of the PCA and heterogeneity analyses for these samples?
+❓ **Q.** Can you find the population outliers?<br>
+❓ **Q.** Can you relate the results of the PCA and heterogeneity analyses for these samples?
 <details>
   <summary> Answer </summary>
   
@@ -429,7 +429,7 @@ cat to-remove.QC_steps1to3.indiv to-remove.related.indiv > to-remove.QC_steps1to
 ~/plink --bfile chrAll.ASA --remove to-remove.QC_steps1to4.indiv --make-bed --out chrAll.ASA.afterSampleQC
 ```
 
-- **Q8:** Retry the PCA with removal of all samples not passing QC, including those failed heterogeneity tests in Steps 2 and 3
+📕 **Q8:** Retry the PCA with removal of all samples not passing QC, including those failed heterogeneity tests in Steps 2 and 3
 
 ## Variant-QC
 It consists of (at least) three steps:
@@ -463,9 +463,10 @@ At the end, you will end up with a dataset of 992 samples and 480780 variants pa
 Besides the 6th column in PLINK .ped and .fam file, you can use another phenotype file via the command of `--pheno [filename]` in PLINK.
 
 - First, let's use R to examine the content of the `CAD_LDL.pheno` phenotype file<br>
-:closed_book: **Q9:** How many cornoary artery disease (CAD) patients and controls are there in this dataset?<br>
 
-:closed_book: **Q.** Is the low density lipoprotein (LDL) level normally distributed?
+📕 **Q9:** How many cornoary artery disease (CAD) patients and controls are there in this dataset?
+
+❓ **Q.** Is the low density lipoprotein (LDL) level normally distributed?
 <details>
 <summary> Answer </summary>
 
@@ -483,7 +484,7 @@ qqline(pheno$LDL)
 ```
 </details>
 
-:closed_book: **Q.** Is there any relationship between age, LDL level and CAD?
+❓ **Q.** Is there any relationship between age, LDL level and CAD?
 <details>
 <summary> Answer </summary>
 
@@ -512,9 +513,10 @@ by(pheno$AGE, pheno$CAD, summary)
 ```
 By default, sex is automatically added as a covariate for all X chromosome SNPs but not anywhere else. The `--adjust` option generates an `.adjusted` file with basic multiple testing corrections (e.g. FDR) for the raw p-values. It also estimates the genomic control factor (lambda) from the data.
  
-:closed_book: **Q10:** Which SNP is the top SNP? Can you give the effect size and the confidence interval (CI)?
+📕 **Q10:** Which SNP is the top SNP? What is the p-value? Which allele increases LDL level? Which allele decreases LDL level? Can you give the effect size and the confidence interval (CI)?  
 
-:closed_book: **Q.** What is the lamda? Does it indicate inflation of the association statistics?
+
+❓ **Q.** What is the lamda? Does it indicate inflation of the association statistics?
 <details>
   <summary> Answer </summary>
 
@@ -548,28 +550,8 @@ Rscript practical3.manhattanPlot.R LDL.adj-AGE.assoc.linear manhattanPlot.LDL.ad
 
 #### Logistic regression with and without adjusting for age to test for association with CAD
 - We can also use PLINK to perform association test to test for association with binary trait, CAD
-- To perform logistic regression without adjusting for age
-```bash 
-~/plink --bfile chrAll.ASA.afterSampleQC.afterVariantQC \
- --chr 1-22,X,XY \
- --pheno CAD_LDL.pheno --pheno-name CAD \
- --logistic \
- --out CAD
-```
-- Adjusting for age
-```bash 
-~/plink --bfile chrAll.ASA.afterSampleQC.afterVariantQC \
- --chr 1-22,X,XY \
- --pheno CAD_LDL.pheno --pheno-name CAD \
- --covar CAD_LDL.pheno --covar-name AGE --hide-covar \
- --logistic \
- --out CAD.adj-AGE
-```
-- Plot the manhattan plots to compare the difference
-```bash 
-Rscript practical3.manhattanPlot.R CAD.assoc.logistic manhattanPlot.CAD
-Rscript practical3.manhattanPlot.R CAD.adj-AGE.assoc.logistic manhattanPlot.CAD.adj-AGE
-```
+
+📕 **Q11:** Perform association test for CAD while adjusting for age. Which SNP is the top SNP? What is the p-value? What are the risk and protective alleles? Can you give the odds ratio and the confidence interval (CI)?
 
 ## Result Annotation
 ### LocusZoom
@@ -608,3 +590,5 @@ You can also use the SNP2GENE function in [FUMA](https://fuma.ctglab.nl/) (Funct
 
 + SNP2GENE result for [CAD](https://fuma.ctglab.nl/browse/461)
 + SNP2GENE result for [LDL](https://fuma.ctglab.nl/browse/462)
+
+📕 **Q12:** For CAD, how many independent GWAS-significant loci?
