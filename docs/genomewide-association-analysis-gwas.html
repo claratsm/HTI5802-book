@@ -23,7 +23,7 @@
 <meta name="author" content="Clara Tang" />
 
 
-<meta name="date" content="2025-02-15" />
+<meta name="date" content="2025-02-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="index.html"/>
-<link rel="next" href="variant-interpretation-for-clinical-sequencing.html"/>
+<link rel="next" href="genomewide-association-analysis-gwas-1.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -176,9 +176,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.9.2" data-path="genomewide-association-analysis-gwas.html"><a href="genomewide-association-analysis-gwas.html#fuma"><i class="fa fa-check"></i><b>1.9.2</b> FUMA</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="variant-interpretation-for-clinical-sequencing.html"><a href="variant-interpretation-for-clinical-sequencing.html"><i class="fa fa-check"></i><b>2</b> Variant interpretation for clinical sequencing</a>
+<li class="chapter" data-level="2" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html"><i class="fa fa-check"></i><b>2</b> Genomewide association analysis (GWAS)</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="variant-interpretation-for-clinical-sequencing.html"><a href="variant-interpretation-for-clinical-sequencing.html#objectives-1"><i class="fa fa-check"></i><b>2.1</b> Objectives</a></li>
+<li class="chapter" data-level="2.1" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#objectives-1"><i class="fa fa-check"></i><b>2.1</b> Objectives</a></li>
+<li class="chapter" data-level="2.2" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#prerequisites-1"><i class="fa fa-check"></i><b>2.2</b> Prerequisites</a></li>
+<li class="chapter" data-level="2.3" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#dataset-1"><i class="fa fa-check"></i><b>2.3</b> Dataset</a></li>
+<li class="chapter" data-level="2.4" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#genotype-data-dormat-1"><i class="fa fa-check"></i><b>2.4</b> Genotype Data Dormat</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#bim-plink-binary-variant-file-1"><i class="fa fa-check"></i><b>2.4.1</b> BIM: PLINK binary variant file</a></li>
+<li class="chapter" data-level="2.4.2" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#fam-plink-binary-pedigree-file-1"><i class="fa fa-check"></i><b>2.4.2</b> FAM: PLINK binary pedigree file</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#quality-control-protocol-1"><i class="fa fa-check"></i><b>2.5</b> Quality control protocol</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#why-do-we-need-the-qc-on-gwas-data-1"><i class="fa fa-check"></i><b>2.5.1</b> Why do we need the QC on GWAS data?</a></li>
+<li class="chapter" data-level="2.5.2" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#the-qc-protocol-from-sample-qc-to-variant-qc-1"><i class="fa fa-check"></i><b>2.5.2</b> The QC protocol: from Sample QC to Variant QC</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#sample-qc-1"><i class="fa fa-check"></i><b>2.6</b> Sample-QC</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#individuals-with-excessive-missing-genotypes-1"><i class="fa fa-check"></i><b>2.6.1</b> Individuals with excessive missing genotypes</a></li>
+<li class="chapter" data-level="2.6.2" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#individuals-with-sex-discrepancy-1"><i class="fa fa-check"></i><b>2.6.2</b> Individuals with sex discrepancy</a></li>
+<li class="chapter" data-level="2.6.3" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#individuals-with-outlying-heterozygosity-rate-1"><i class="fa fa-check"></i><b>2.6.3</b> Individuals with outlying heterozygosity rate</a></li>
+<li class="chapter" data-level="2.6.4" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#duplicated-or-related-individuals-1"><i class="fa fa-check"></i><b>2.6.4</b> Duplicated or related individuals</a></li>
+<li class="chapter" data-level="2.6.5" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#population-outliers-1"><i class="fa fa-check"></i><b>2.6.5</b> Population outliers</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#variant-qc-1"><i class="fa fa-check"></i><b>2.7</b> Variant-QC</a></li>
+<li class="chapter" data-level="2.8" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#association-analysis-1"><i class="fa fa-check"></i><b>2.8</b> Association Analysis</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#phenotype-data-1"><i class="fa fa-check"></i><b>2.8.1</b> Phenotype Data</a></li>
+<li class="chapter" data-level="2.8.2" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#association-test-regression-1"><i class="fa fa-check"></i><b>2.8.2</b> Association test: regression</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#result-annotation-1"><i class="fa fa-check"></i><b>2.9</b> Result Annotation</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#locuszoom-1"><i class="fa fa-check"></i><b>2.9.1</b> LocusZoom</a></li>
+<li class="chapter" data-level="2.9.2" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#fuma-1"><i class="fa fa-check"></i><b>2.9.2</b> FUMA</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="variant-interpretation-for-clinical-sequencing.html"><a href="variant-interpretation-for-clinical-sequencing.html"><i class="fa fa-check"></i><b>3</b> Variant interpretation for clinical sequencing</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="variant-interpretation-for-clinical-sequencing.html"><a href="variant-interpretation-for-clinical-sequencing.html#objectives-2"><i class="fa fa-check"></i><b>3.1</b> Objectives</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -431,8 +466,9 @@ Try your own R codes
 <span id="cb15-17"><a href="genomewide-association-analysis-gwas.html#cb15-17" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">row.names</span>(mismatch),mismatch<span class="sc">$</span>F,<span class="at">pch=</span><span class="dv">22</span>,<span class="at">bg=</span><span class="st">&quot;green&quot;</span>,<span class="at">col=</span><span class="st">&quot;black&quot;</span>,<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">cex=</span><span class="dv">2</span>)</span>
 <span id="cb15-18"><a href="genomewide-association-analysis-gwas.html#cb15-18" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fl">0.2</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
 <span id="cb15-19"><a href="genomewide-association-analysis-gwas.html#cb15-19" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fl">0.8</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span>
-<span id="cb15-20"><a href="genomewide-association-analysis-gwas.html#cb15-20" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomright&quot;</span>,<span class="fu">c</span>(<span class="st">&quot;Male PEDSEX&quot;</span>,<span class="st">&quot;Female PEDSEX&quot;</span>,<span class="st">&quot;sample with PROBELM&quot;</span>), <span class="at">col=</span><span class="fu">c</span>(colsex,<span class="st">&quot;black&quot;</span>),<span class="at">pt.bg=</span><span class="st">&quot;green&quot;</span>, <span class="at">pch=</span><span class="fu">c</span>(<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">22</span>))</span>
-<span id="cb15-21"><a href="genomewide-association-analysis-gwas.html#cb15-21" tabindex="-1"></a><span class="co"># =============================================================</span></span></code></pre></div>
+<span id="cb15-20"><a href="genomewide-association-analysis-gwas.html#cb15-20" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomright&quot;</span>,<span class="fu">c</span>(<span class="st">&quot;Male PEDSEX&quot;</span>,<span class="st">&quot;Female PEDSEX&quot;</span>,<span class="st">&quot;sample with PROBELM&quot;</span>), <span class="at">col=</span><span class="fu">c</span>(colsex,<span class="st">&quot;black&quot;</span>),<span class="at">pt.bg=</span><span class="st">&quot;green&quot;</span>, <span class="at">pch=</span><span class="fu">c</span>(<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">22</span>),<span class="at">cex=</span><span class="fl">0.5</span>)</span>
+<span id="cb15-21"><a href="genomewide-association-analysis-gwas.html#cb15-21" tabindex="-1"></a></span>
+<span id="cb15-22"><a href="genomewide-association-analysis-gwas.html#cb15-22" tabindex="-1"></a><span class="co"># =============================================================</span></span></code></pre></div>
 <p><img src="https://user-images.githubusercontent.com/8644480/170831468-747d54ae-1b5a-4057-aa00-319f9a2a4864.png" /></p>
 <p><strong>What is the relationship between missingness and inbreeeding coefficient for chrX?</strong></p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="genomewide-association-analysis-gwas.html#cb16-1" tabindex="-1"></a><span class="co"># ========================== R code ==========================</span></span>
@@ -443,7 +479,7 @@ Try your own R codes
 <span id="cb16-6"><a href="genomewide-association-analysis-gwas.html#cb16-6" tabindex="-1"></a><span class="fu">points</span>(mismatch.imiss<span class="sc">$</span>F_MISS, mismatch.imiss<span class="sc">$</span>F, <span class="at">pch=</span><span class="dv">22</span>, <span class="at">bg=</span><span class="st">&quot;green&quot;</span>, <span class="at">col=</span><span class="st">&quot;black&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">cex=</span><span class="fl">1.5</span>)</span>
 <span id="cb16-7"><a href="genomewide-association-analysis-gwas.html#cb16-7" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fl">0.2</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
 <span id="cb16-8"><a href="genomewide-association-analysis-gwas.html#cb16-8" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fl">0.8</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span>
-<span id="cb16-9"><a href="genomewide-association-analysis-gwas.html#cb16-9" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomleft&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;Male PEDSEX&quot;</span>,<span class="st">&quot;Female PEDSEX&quot;</span>,<span class="st">&quot;sample with PROBELM&quot;</span>), <span class="at">col=</span><span class="fu">c</span>(colsex,<span class="st">&quot;black&quot;</span>),<span class="at">pt.bg=</span><span class="st">&quot;green&quot;</span>, <span class="at">pch=</span><span class="fu">c</span>(<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">22</span>))</span>
+<span id="cb16-9"><a href="genomewide-association-analysis-gwas.html#cb16-9" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomleft&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;Male PEDSEX&quot;</span>,<span class="st">&quot;Female PEDSEX&quot;</span>,<span class="st">&quot;sample with PROBELM&quot;</span>), <span class="at">col=</span><span class="fu">c</span>(colsex,<span class="st">&quot;black&quot;</span>),<span class="at">pt.bg=</span><span class="st">&quot;green&quot;</span>, <span class="at">pch=</span><span class="fu">c</span>(<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">22</span>),<span class="at">cex=</span><span class="fl">0.5</span>)</span>
 <span id="cb16-10"><a href="genomewide-association-analysis-gwas.html#cb16-10" tabindex="-1"></a><span class="co"># =============================================================</span></span></code></pre></div>
 <p><img src="https://github.com/user-attachments/assets/7632a6e2-453f-4922-b6fe-d938dc3609ab" /></p>
 <p>In addition to poor sample or genotyping quality, X chromosome aneuploidy, such as Turner syndrome (e.g. 45,X0) and Klinefelter syndrome (47, XXY), may lead to abnormal heterogenity. Missingness for SNPs on chr Y can be used to impute sex using <code>--check-sex ycount [female max F] [male min F] [female max Y obs] [male min Y obs]</code>. Before determining the minimum and maximum threshold of observed chrY variants, we can first set [female max Y obs] to maximum number of chrY variants and [male min Y obs] to 0</p>
@@ -515,7 +551,7 @@ Try your own PLINK / R codes
 <span id="cb26-11"><a href="genomewide-association-analysis-gwas.html#cb26-11" tabindex="-1"></a><span class="fu">points</span>(imiss.het<span class="sc">$</span>F_MISS[imiss.het<span class="sc">$</span>F<span class="sc">&gt;</span>up3sd], imiss.het<span class="sc">$</span>F[imiss.het<span class="sc">$</span>F<span class="sc">&gt;</span>up3sd], <span class="at">bg=</span><span class="st">&quot;red&quot;</span>, <span class="at">pch=</span><span class="dv">21</span>)</span>
 <span id="cb26-12"><a href="genomewide-association-analysis-gwas.html#cb26-12" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>up3sd, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
 <span id="cb26-13"><a href="genomewide-association-analysis-gwas.html#cb26-13" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>low3sd, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
-<span id="cb26-14"><a href="genomewide-association-analysis-gwas.html#cb26-14" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomleft&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;Below 3SD&quot;</span>,<span class="st">&quot;Above 3SD&quot;</span>), <span class="at">pt.bg=</span><span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;red&quot;</span>), <span class="at">pch=</span><span class="dv">21</span>)</span>
+<span id="cb26-14"><a href="genomewide-association-analysis-gwas.html#cb26-14" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomleft&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;Below 3SD&quot;</span>,<span class="st">&quot;Above 3SD&quot;</span>), <span class="at">pt.bg=</span><span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;red&quot;</span>), <span class="at">pch=</span><span class="dv">21</span>, <span class="at">cex=</span><span class="fl">0.5</span>)</span>
 <span id="cb26-15"><a href="genomewide-association-analysis-gwas.html#cb26-15" tabindex="-1"></a><span class="co"># =============================================================</span></span></code></pre></div>
 <p><img src="https://user-images.githubusercontent.com/8644480/170840625-0763918e-5686-41ef-b6c5-b3de77468ee6.png" /></p>
 <p>Samples with high missingness usually have abnormal number of heterozygous genotypes called (too many or too few).
@@ -782,7 +818,7 @@ Answer
         </div>
       </div>
 <a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="variant-interpretation-for-clinical-sequencing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="genomewide-association-analysis-gwas-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -813,7 +849,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/01-GWAS.Rmd",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/01-GWAS_2.Rmd",
 "text": "Edit"
 },
 "history": {
