@@ -23,7 +23,7 @@
 <meta name="author" content="Clara Tang" />
 
 
-<meta name="date" content="2025-02-16" />
+<meta name="date" content="2025-02-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="index.html"/>
-<link rel="next" href="genomewide-association-analysis-gwas-1.html"/>
+<link rel="next" href="variant-interpretation-for-clinical-sequencing.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -176,44 +176,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.9.2" data-path="genomewide-association-analysis-gwas.html"><a href="genomewide-association-analysis-gwas.html#fuma"><i class="fa fa-check"></i><b>1.9.2</b> FUMA</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html"><i class="fa fa-check"></i><b>2</b> Genomewide association analysis (GWAS)</a>
+<li class="chapter" data-level="2" data-path="variant-interpretation-for-clinical-sequencing.html"><a href="variant-interpretation-for-clinical-sequencing.html"><i class="fa fa-check"></i><b>2</b> Variant interpretation for clinical sequencing</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#objectives-1"><i class="fa fa-check"></i><b>2.1</b> Objectives</a></li>
-<li class="chapter" data-level="2.2" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#prerequisites-1"><i class="fa fa-check"></i><b>2.2</b> Prerequisites</a></li>
-<li class="chapter" data-level="2.3" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#dataset-1"><i class="fa fa-check"></i><b>2.3</b> Dataset</a></li>
-<li class="chapter" data-level="2.4" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#genotype-data-dormat-1"><i class="fa fa-check"></i><b>2.4</b> Genotype Data Dormat</a>
-<ul>
-<li class="chapter" data-level="2.4.1" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#bim-plink-binary-variant-file-1"><i class="fa fa-check"></i><b>2.4.1</b> BIM: PLINK binary variant file</a></li>
-<li class="chapter" data-level="2.4.2" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#fam-plink-binary-pedigree-file-1"><i class="fa fa-check"></i><b>2.4.2</b> FAM: PLINK binary pedigree file</a></li>
-</ul></li>
-<li class="chapter" data-level="2.5" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#quality-control-protocol-1"><i class="fa fa-check"></i><b>2.5</b> Quality control protocol</a>
-<ul>
-<li class="chapter" data-level="2.5.1" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#why-do-we-need-the-qc-on-gwas-data-1"><i class="fa fa-check"></i><b>2.5.1</b> Why do we need the QC on GWAS data?</a></li>
-<li class="chapter" data-level="2.5.2" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#the-qc-protocol-from-sample-qc-to-variant-qc-1"><i class="fa fa-check"></i><b>2.5.2</b> The QC protocol: from Sample QC to Variant QC</a></li>
-</ul></li>
-<li class="chapter" data-level="2.6" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#sample-qc-1"><i class="fa fa-check"></i><b>2.6</b> Sample-QC</a>
-<ul>
-<li class="chapter" data-level="2.6.1" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#individuals-with-excessive-missing-genotypes-1"><i class="fa fa-check"></i><b>2.6.1</b> Individuals with excessive missing genotypes</a></li>
-<li class="chapter" data-level="2.6.2" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#individuals-with-sex-discrepancy-1"><i class="fa fa-check"></i><b>2.6.2</b> Individuals with sex discrepancy</a></li>
-<li class="chapter" data-level="2.6.3" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#individuals-with-outlying-heterozygosity-rate-1"><i class="fa fa-check"></i><b>2.6.3</b> Individuals with outlying heterozygosity rate</a></li>
-<li class="chapter" data-level="2.6.4" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#duplicated-or-related-individuals-1"><i class="fa fa-check"></i><b>2.6.4</b> Duplicated or related individuals</a></li>
-<li class="chapter" data-level="2.6.5" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#population-outliers-1"><i class="fa fa-check"></i><b>2.6.5</b> Population outliers</a></li>
-</ul></li>
-<li class="chapter" data-level="2.7" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#variant-qc-1"><i class="fa fa-check"></i><b>2.7</b> Variant-QC</a></li>
-<li class="chapter" data-level="2.8" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#association-analysis-1"><i class="fa fa-check"></i><b>2.8</b> Association Analysis</a>
-<ul>
-<li class="chapter" data-level="2.8.1" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#phenotype-data-1"><i class="fa fa-check"></i><b>2.8.1</b> Phenotype Data</a></li>
-<li class="chapter" data-level="2.8.2" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#association-test-regression-1"><i class="fa fa-check"></i><b>2.8.2</b> Association test: regression</a></li>
-</ul></li>
-<li class="chapter" data-level="2.9" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#result-annotation-1"><i class="fa fa-check"></i><b>2.9</b> Result Annotation</a>
-<ul>
-<li class="chapter" data-level="2.9.1" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#locuszoom-1"><i class="fa fa-check"></i><b>2.9.1</b> LocusZoom</a></li>
-<li class="chapter" data-level="2.9.2" data-path="genomewide-association-analysis-gwas-1.html"><a href="genomewide-association-analysis-gwas-1.html#fuma-1"><i class="fa fa-check"></i><b>2.9.2</b> FUMA</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="variant-interpretation-for-clinical-sequencing.html"><a href="variant-interpretation-for-clinical-sequencing.html"><i class="fa fa-check"></i><b>3</b> Variant interpretation for clinical sequencing</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="variant-interpretation-for-clinical-sequencing.html"><a href="variant-interpretation-for-clinical-sequencing.html#objectives-2"><i class="fa fa-check"></i><b>3.1</b> Objectives</a></li>
+<li class="chapter" data-level="2.1" data-path="variant-interpretation-for-clinical-sequencing.html"><a href="variant-interpretation-for-clinical-sequencing.html#objectives-1"><i class="fa fa-check"></i><b>2.1</b> Objectives</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -818,7 +783,7 @@ Answer
         </div>
       </div>
 <a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="genomewide-association-analysis-gwas-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="variant-interpretation-for-clinical-sequencing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
