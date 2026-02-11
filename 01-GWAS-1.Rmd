@@ -1,4 +1,4 @@
-# Genomewide association analysis (GWAS)
+# GWAS 1 - Data management and Quality control
 
 ## Objectives
 In this practical, you will learn the basic steps of data quality assessment and QC on genotype data that are typically carried out in genome-wide association studies (GWAS).
@@ -6,7 +6,6 @@ In this practical, you will learn the basic steps of data quality assessment and
 * [Genotype Data format](#genotype-data-format)
 * [Sample QC](#sample-qc)
 * [Variant QC](#variant-qc)
-* [Association analysis](#association-analysis)
 
 ## Prerequisites
 For sample and variant QC, we need the following software that is pre-installed in the VM
@@ -458,137 +457,3 @@ Here we are using the following thresholds:
   
 At the end, you will end up with a dataset of 992 samples and 480780 variants passing sample-based and variant-based QCs.
 
-## Association Analysis
-### Phenotype Data 
-Besides the 6th column in PLINK .ped and .fam file, you can use another phenotype file via the command of `--pheno [filename]` in PLINK.
-
-- First, let's use R to examine the content of the `CAD_LDL.pheno` phenotype file<br>
-
-📕 **Q9:** How many cornoary artery disease (CAD) patients and controls are there in this dataset?
-
-❓ **Q.** Is the low density lipoprotein (LDL) level normally distributed?
-<details>
-<summary> Answer </summary>
-
-+ Yes. The LDL level is normally distributed and no further transformation is needed
-```R
-# ========================== R code ==========================
-# Plot the histogram to assess if the LDL level is normally distributed
-hist(pheno$LDL, freq=T, col="darkred", border ="black", main="Distribution of LDL", xlab="LDL level", ylab="Number of samples")
-```
-```R
-# Plot the QQ plot to assess if the LDL level is normally distributed
-qqnorm(pheno$LDL)
-qqline(pheno$LDL)
-# ============================================================
-```
-</details>
-
-❓ **Q.** Is there any relationship between age, LDL level and CAD?
-<details>
-<summary> Answer </summary>
-
- + CAD patients are generally older than controls (_P_=2.6x10<sup>-43</sup>) and LDL level increases with age (_P_=0.005).
-```R
-# ========================== R code ==========================
-# Test if age is associated with LDL and CAD
-summary(glm(LDL ~ AGE, data=pheno))
-summary(glm(CAD==2 ~ AGE, family="binomial", data=pheno))
-by(pheno$AGE, pheno$CAD, summary)
-# ============================================================
-```
-</details>
-
-### Association test: regression 
-- Next, we will use PLINK to perform association test to test for association with LDL
- 
-#### Linear regression WITHOUT adjustment
-```bash  
-~/plink --bfile chrAll.ASA.afterSampleQC.afterVariantQC \
-  --chr 1-22,X,XY \
-  --pheno CAD_LDL.pheno \
-  --pheno-name LDL \
-  --linear --adjust \
-  --out LDL
-```
-By default, sex is automatically added as a covariate for all X chromosome SNPs but not anywhere else. The `--adjust` option generates an `.adjusted` file with basic multiple testing corrections (e.g. FDR) for the raw p-values. It also estimates the genomic control factor (lambda) from the data.
- 
-📕 **Q10:** Which SNP is the top SNP? What is the p-value? Which allele increases LDL level? Which allele decreases LDL level? Can you give the effect size and the confidence interval (CI)?  
-
-
-❓ **Q.** What is the lamda? Does it indicate inflation of the association statistics?
-<details>
-  <summary> Answer </summary>
-
-+ lamda=1.00236. No inflation in summary statistics.
-</details>
-<br> 
-- Plot the manhattan plot to visualize the association results  
-```bash 
-# Rscript practical3.manhattanPlot.R <assoc_file> <outpu_prefix>
-Rscript practical3.manhattanPlot.R LDL.assoc.linear manhattanPlot.LDL
-```
- 
-#### Linear regression adjusted for age
-To adjust for confounding factor(s), you can use `--covar <filename>` to specify the covariate file, i.e. `CAD_LDL.pheno` in this example. The covariate(s) used for adjustment is specified through `--covar-name`.
- 
-<pre><code>~/plink --bfile chrAll.ASA.afterSampleQC.afterVariantQC \
-  --chr 1-22,X,XY \
-  --pheno CAD_LDL.pheno \
-  --pheno-name LDL \
-  <b>--covar CAD_LDL.pheno \</b>
-  <b>--covar-name AGE \</b>
-  <b>--hide-covar \</b>
-  --linear --adjust \
-  --out LDL.adj-AGE
-</code></pre>
-
-- Plot the association results without adjustment of age and compare it with the previous one without adjustment
-```bash 
-Rscript practical3.manhattanPlot.R LDL.adj-AGE.assoc.linear manhattanPlot.LDL.adj-AGE
-```
-
-#### Logistic regression with and without adjusting for age to test for association with CAD
-- We can also use PLINK to perform association test to test for association with binary trait, CAD
-
-📕 **Q11:** Perform association test for CAD while adjusting for age. Which SNP is the top SNP? What is the p-value? What are the risk and protective alleles? Can you give the odds ratio and the confidence interval (CI)?
-
-## Result Annotation
-### LocusZoom
-[LocalZoom](https://statgen.github.io/localzoom/) (https://statgen.github.io/localzoom/) is a tool for generating regional association plot via web browser or offline. For the web-based js version without uploading the summary statistics, a tabix-indexed tab-delimited text file is needed. If you are comfortable uploading your data to a server, you can consider using the my.locuszoom.org upload service with more custom function.
- 
-Please noted that both the reference (Ref) and alternative (Alt) alleles are needed for visualizing the LD. For simplicity, we use A1 as the alternative allele and A2 as the reference allele here. You will usually flip to the reference strand and get the right Ref/Alt alleles after imputation. 
-```bash
-# (i) convert "fixed width" PLINK association result format to "tab-delimited"
-# (ii) add the A2 allele (specifying the right Ref and Alt alleles are needed for LD plot)
-awk 'BEGIN { OFS="\t"; a2["SNP"]="A2" } NR==FNR { a2[$2]=$6 } NR!=FNR { $4=$4"\t"a2[$2]; if (FNR!=1) $2=$1":"$3; print }' \
- chrAll.ASA.afterSampleQC.afterVariantQC.bim \
- LDL.adj-AGE.assoc.linear | \
- bgzip > LDL.adj-AGE.assoc.linear.forLocuszoom.gz
- 
-# (iii) index the association file
-tabix -s 1 -b 3 -e 3 --skip-lines 1 -f LDL.adj-AGE.assoc.linear.forLocuszoom.gz
-```
-+ First, make sure that `GWAS` and the right genome assembly are chosen, i.e. `GRCh37` for this example dataset
-<img src="https://user-images.githubusercontent.com/8644480/171670740-86b20b26-cc20-4512-81cc-d43940be970c.png" width=800>
- 
-+ Click `Add tab-indexed datafile` > `Browse` to add the LDL.adj-AGE.assoc.linear.forLocuszoom **.gz** and **.gz.tbi** files
-<img src="https://user-images.githubusercontent.com/8644480/171672531-00848874-2530-446a-aad4-102475c2ea62.png" width=800>
-+ Choose `GWAS scattered plot` as `Type`
-<img src="https://user-images.githubusercontent.com/8644480/171672261-3cf5120d-a24b-455a-96e6-959e262b2ef6.png" width=250>
- 
-+ Under `Variant from columns` > Choose the major allele `A2` as `Ref` allele and the minor allele `A1` as the `Alt` allele
-<img src="https://user-images.githubusercontent.com/8644480/171672887-bc1c4203-0880-44a5-9f66-64b376a155a9.png" width=500>
-
-+ Next > Accept option > Type `rs2075650` in the box > Go to the region
-+ Choose `LD population: EAS`
-+ You can also change the range of region to `19:45300000-45500000` for a zoom in view
-<img src="https://user-images.githubusercontent.com/8644480/171678660-f12f0ff9-c4d1-4472-bf9d-089ad58d0164.png" width=800>
-
-### FUMA 
-You can also use the SNP2GENE function in [FUMA](https://fuma.ctglab.nl/) (Functional Mapping and Annotation of Genome-Wide Association Studies; https://fuma.ctglab.nl/) for annotating, prioritizing, and interpreting the GWAS results. The SNP2GENE function takes GWAS summary statistics as input, and provides functional annotation for all SNPs in genomic areas identified by lead SNPs.
-
-+ SNP2GENE result for [CAD](https://fuma.ctglab.nl/browse/461)
-+ SNP2GENE result for [LDL](https://fuma.ctglab.nl/browse/462)
-
-📕 **Q12:** For CAD, how many independent GWAS-significant loci?

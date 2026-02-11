@@ -4,8 +4,8 @@ Welcome to the book for practical sections of [HTI5802: Algorithms in Bioinforma
 
 This book is designed as a collection of R Markdown notebooks, as supplementary to the lecture notes for GWAS and sequence interpretation of HTI5802 at PolyU.
 
-1. [Genomewide association analysis (GWAS)](https://github.com/claratsm/HTI5802-book/blob/main/GWAS.md) (2025-02-17)
-2. [Variant interpretation for clinical sequencing]() (2025-03-10)
+1. [Genomewide association analysis (GWAS) 1 - Data management & QC ](https://claratsm.github.io/HTI5802-book/genomewide-association-analysis-gwas.html) (2026-02-13)
+2. [Genomewide association analysis (GWAS) 2 - Association analysis ](https://claratsm.github.io/HTI5802-book/genomewide-association-analysis-gwas.html) (2025-02-27)
 
 Note: Most contents may be updated before or right after the lectures, so please refer to the updated version.
 
