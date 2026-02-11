@@ -13,6 +13,12 @@ For sample and variant QC, we need the following software that is pre-installed 
 - `PLINK`[1.9 beta](https://www.cog-genomics.org/plink/) for data management 
 - `R` for visualization of different QC measures
   
+To load R 
+```bash
+module load gnu12
+module load R
+```
+
 ## Dataset
 - First, create a new directory named `gwas` for this practical section
 ```bash
