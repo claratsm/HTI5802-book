@@ -17,9 +17,11 @@ We will start with the dataset of 480,780 variants for 992 samples passing QC fr
 | 798746e8bcc2c18110dac62ee78ff602 | chrAll.ASA.afterSampleQC.afterVariantQC.fam |
  
 + If the md5sum values are consistent, you can copy the PLINK binary files to a new folder and named the new folder as `associationtest`
-<pre><code>mkdir ../associationtest
-cd ../associationtest
-cp ../gwas/chrAll.ASA.afterSampleQC.afterVariantQC.* .
+<pre><code>mkdir associationtest
+cd associationtest
+cp ../chrAll.ASA.afterSampleQC.afterVariantQC.* .
+cp ../plink .
+cp ../CAD_LDL.pheno .
 </code></pre>
 Otherwise, you can download the whole dataset passing QC from the github
 <details>
