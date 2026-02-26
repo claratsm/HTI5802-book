@@ -23,7 +23,7 @@
 <meta name="author" content="Clara Tang" />
 
 
-<meta name="date" content="2026-02-11" />
+<meta name="date" content="2026-02-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -171,8 +171,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1" data-path="gwas-2---association-analysis.html"><a href="gwas-2---association-analysis.html#objectives-1"><i class="fa fa-check"></i><b>2.1</b> Objectives</a></li>
 <li class="chapter" data-level="2.2" data-path="gwas-2---association-analysis.html"><a href="gwas-2---association-analysis.html#association-analysis"><i class="fa fa-check"></i><b>2.2</b> Association Analysis</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="gwas-2---association-analysis.html"><a href="gwas-2---association-analysis.html#phenotype-data"><i class="fa fa-check"></i><b>2.2.1</b> Phenotype Data</a></li>
-<li class="chapter" data-level="2.2.2" data-path="gwas-2---association-analysis.html"><a href="gwas-2---association-analysis.html#association-test-regression"><i class="fa fa-check"></i><b>2.2.2</b> Association test: regression</a></li>
+<li class="chapter" data-level="2.2.1" data-path="gwas-2---association-analysis.html"><a href="gwas-2---association-analysis.html#prequisites"><i class="fa fa-check"></i><b>2.2.1</b> Prequisites</a></li>
+<li class="chapter" data-level="2.2.2" data-path="gwas-2---association-analysis.html"><a href="gwas-2---association-analysis.html#phenotype-data"><i class="fa fa-check"></i><b>2.2.2</b> Phenotype Data</a></li>
+<li class="chapter" data-level="2.2.3" data-path="gwas-2---association-analysis.html"><a href="gwas-2---association-analysis.html#association-test-regression"><i class="fa fa-check"></i><b>2.2.3</b> Association test: regression</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="gwas-2---association-analysis.html"><a href="gwas-2---association-analysis.html#result-annotation"><i class="fa fa-check"></i><b>2.3</b> Result Annotation</a>
 <ul>
@@ -208,8 +209,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="association-analysis" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Association Analysis<a href="gwas-2---association-analysis.html#association-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="phenotype-data" class="section level3 hasAnchor" number="2.2.1">
-<h3><span class="header-section-number">2.2.1</span> Phenotype Data<a href="gwas-2---association-analysis.html#phenotype-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="prequisites" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Prequisites<a href="gwas-2---association-analysis.html#prequisites" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We will start with the dataset of 480,780 variants for 992 samples passing QC from the previous <strong>Sample array QC</strong> practical. To ensure that we are using the same dataset, let’s check the md5sum of these PLINK files</p>
+<pre><code>md5sum <b>chrAll.ASA.afterSampleQC.afterVariantQC.*</b>
+</code></pre>
+<table>
+<colgroup>
+<col width="41%" />
+<col width="58%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Md5sum</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>7c6619616f0391886b41bd54eb340ee9</td>
+<td>chrAll.ASA.afterSampleQC.afterVariantQC.bed</td>
+</tr>
+<tr class="even">
+<td>dd8f8e4c40207a8b5aff1ec60c25fe83</td>
+<td>chrAll.ASA.afterSampleQC.afterVariantQC.bim</td>
+</tr>
+<tr class="odd">
+<td>798746e8bcc2c18110dac62ee78ff602</td>
+<td>chrAll.ASA.afterSampleQC.afterVariantQC.fam</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>If the md5sum values are consistent, you can copy the PLINK binary files to a new folder and named the new folder as <code>associationtest</code>
+<pre><code>mkdir associationtest
+cd associationtest
+cp ../chrAll.ASA.afterSampleQC.afterVariantQC.* .
+cp ../plink .
+cp ../CAD_LDL.pheno .
+</code></pre>
+Otherwise, you can download the whole dataset passing QC from the github
+<details>
+<summary>
+Code to copy
+</summary></li>
+</ul>
+<div class="sourceCode" id="cb39"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb39-1"><a href="gwas-2---association-analysis.html#cb39-1" tabindex="-1"></a><span class="fu">wget</span> https://github.com/claratsm/HTI5802_Algorithms-in-Bioinformatics-and-Genomics/raw/main/Practical/chrAll.ASA.afterSampleQC.afterVariantQC.tar.gz </span>
+<span id="cb39-2"><a href="gwas-2---association-analysis.html#cb39-2" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-zxvf</span> chrAll.ASA.afterSampleQC.afterVariantQC.tar.gz</span></code></pre></div>
+</div>
+<div id="phenotype-data" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Phenotype Data<a href="gwas-2---association-analysis.html#phenotype-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Besides the 6th column in PLINK .ped and .fam file, you can use another phenotype file via the command of <code>--pheno [filename]</code> in PLINK.</p>
 <ul>
 <li>First, let’s use R to examine the content of the <code>CAD_LDL.pheno</code> phenotype file<br></li>
@@ -223,13 +272,13 @@ Answer
 <ul>
 <li>Yes. The LDL level is normally distributed and no further transformation is needed</li>
 </ul>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="gwas-2---association-analysis.html#cb39-1" tabindex="-1"></a><span class="co"># ========================== R code ==========================</span></span>
-<span id="cb39-2"><a href="gwas-2---association-analysis.html#cb39-2" tabindex="-1"></a><span class="co"># Plot the histogram to assess if the LDL level is normally distributed</span></span>
-<span id="cb39-3"><a href="gwas-2---association-analysis.html#cb39-3" tabindex="-1"></a><span class="fu">hist</span>(pheno<span class="sc">$</span>LDL, <span class="at">freq=</span>T, <span class="at">col=</span><span class="st">&quot;darkred&quot;</span>, <span class="at">border =</span><span class="st">&quot;black&quot;</span>, <span class="at">main=</span><span class="st">&quot;Distribution of LDL&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;LDL level&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Number of samples&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="gwas-2---association-analysis.html#cb40-1" tabindex="-1"></a><span class="co"># Plot the QQ plot to assess if the LDL level is normally distributed</span></span>
-<span id="cb40-2"><a href="gwas-2---association-analysis.html#cb40-2" tabindex="-1"></a><span class="fu">qqnorm</span>(pheno<span class="sc">$</span>LDL)</span>
-<span id="cb40-3"><a href="gwas-2---association-analysis.html#cb40-3" tabindex="-1"></a><span class="fu">qqline</span>(pheno<span class="sc">$</span>LDL)</span>
-<span id="cb40-4"><a href="gwas-2---association-analysis.html#cb40-4" tabindex="-1"></a><span class="co"># ============================================================</span></span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="gwas-2---association-analysis.html#cb40-1" tabindex="-1"></a><span class="co"># ========================== R code ==========================</span></span>
+<span id="cb40-2"><a href="gwas-2---association-analysis.html#cb40-2" tabindex="-1"></a><span class="co"># Plot the histogram to assess if the LDL level is normally distributed</span></span>
+<span id="cb40-3"><a href="gwas-2---association-analysis.html#cb40-3" tabindex="-1"></a><span class="fu">hist</span>(pheno<span class="sc">$</span>LDL, <span class="at">freq=</span>T, <span class="at">col=</span><span class="st">&quot;darkred&quot;</span>, <span class="at">border =</span><span class="st">&quot;black&quot;</span>, <span class="at">main=</span><span class="st">&quot;Distribution of LDL&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;LDL level&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Number of samples&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="gwas-2---association-analysis.html#cb41-1" tabindex="-1"></a><span class="co"># Plot the QQ plot to assess if the LDL level is normally distributed</span></span>
+<span id="cb41-2"><a href="gwas-2---association-analysis.html#cb41-2" tabindex="-1"></a><span class="fu">qqnorm</span>(pheno<span class="sc">$</span>LDL)</span>
+<span id="cb41-3"><a href="gwas-2---association-analysis.html#cb41-3" tabindex="-1"></a><span class="fu">qqline</span>(pheno<span class="sc">$</span>LDL)</span>
+<span id="cb41-4"><a href="gwas-2---association-analysis.html#cb41-4" tabindex="-1"></a><span class="co"># ============================================================</span></span></code></pre></div>
 </details>
 ❓ <strong>Q.</strong> Is there any relationship between age, LDL level and CAD?
 <details>
@@ -239,27 +288,27 @@ Answer
 <ul>
 <li>CAD patients are generally older than controls (<em>P</em>=2.6x10<sup>-43</sup>) and LDL level increases with age (<em>P</em>=0.005).</li>
 </ul>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="gwas-2---association-analysis.html#cb41-1" tabindex="-1"></a><span class="co"># ========================== R code ==========================</span></span>
-<span id="cb41-2"><a href="gwas-2---association-analysis.html#cb41-2" tabindex="-1"></a><span class="co"># Test if age is associated with LDL and CAD</span></span>
-<span id="cb41-3"><a href="gwas-2---association-analysis.html#cb41-3" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">glm</span>(LDL <span class="sc">~</span> AGE, <span class="at">data=</span>pheno))</span>
-<span id="cb41-4"><a href="gwas-2---association-analysis.html#cb41-4" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">glm</span>(CAD<span class="sc">==</span><span class="dv">2</span> <span class="sc">~</span> AGE, <span class="at">family=</span><span class="st">&quot;binomial&quot;</span>, <span class="at">data=</span>pheno))</span>
-<span id="cb41-5"><a href="gwas-2---association-analysis.html#cb41-5" tabindex="-1"></a><span class="fu">by</span>(pheno<span class="sc">$</span>AGE, pheno<span class="sc">$</span>CAD, summary)</span>
-<span id="cb41-6"><a href="gwas-2---association-analysis.html#cb41-6" tabindex="-1"></a><span class="co"># ============================================================</span></span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="gwas-2---association-analysis.html#cb42-1" tabindex="-1"></a><span class="co"># ========================== R code ==========================</span></span>
+<span id="cb42-2"><a href="gwas-2---association-analysis.html#cb42-2" tabindex="-1"></a><span class="co"># Test if age is associated with LDL and CAD</span></span>
+<span id="cb42-3"><a href="gwas-2---association-analysis.html#cb42-3" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">glm</span>(LDL <span class="sc">~</span> AGE, <span class="at">data=</span>pheno))</span>
+<span id="cb42-4"><a href="gwas-2---association-analysis.html#cb42-4" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">glm</span>(CAD<span class="sc">==</span><span class="dv">2</span> <span class="sc">~</span> AGE, <span class="at">family=</span><span class="st">&quot;binomial&quot;</span>, <span class="at">data=</span>pheno))</span>
+<span id="cb42-5"><a href="gwas-2---association-analysis.html#cb42-5" tabindex="-1"></a><span class="fu">by</span>(pheno<span class="sc">$</span>AGE, pheno<span class="sc">$</span>CAD, summary)</span>
+<span id="cb42-6"><a href="gwas-2---association-analysis.html#cb42-6" tabindex="-1"></a><span class="co"># ============================================================</span></span></code></pre></div>
 </details>
 </div>
-<div id="association-test-regression" class="section level3 hasAnchor" number="2.2.2">
-<h3><span class="header-section-number">2.2.2</span> Association test: regression<a href="gwas-2---association-analysis.html#association-test-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="association-test-regression" class="section level3 hasAnchor" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> Association test: regression<a href="gwas-2---association-analysis.html#association-test-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Next, we will use PLINK to perform association test to test for association with LDL</li>
 </ul>
-<div id="linear-regression-without-adjustment" class="section level4 hasAnchor" number="2.2.2.1">
-<h4><span class="header-section-number">2.2.2.1</span> Linear regression WITHOUT adjustment<a href="gwas-2---association-analysis.html#linear-regression-without-adjustment" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb42"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb42-1"><a href="gwas-2---association-analysis.html#cb42-1" tabindex="-1"></a><span class="ex">~/plink</span> <span class="at">--bfile</span> chrAll.ASA.afterSampleQC.afterVariantQC <span class="dt">\</span></span>
-<span id="cb42-2"><a href="gwas-2---association-analysis.html#cb42-2" tabindex="-1"></a>  <span class="at">--chr</span> 1-22,X,XY <span class="dt">\</span></span>
-<span id="cb42-3"><a href="gwas-2---association-analysis.html#cb42-3" tabindex="-1"></a>  <span class="at">--pheno</span> CAD_LDL.pheno <span class="dt">\</span></span>
-<span id="cb42-4"><a href="gwas-2---association-analysis.html#cb42-4" tabindex="-1"></a>  <span class="at">--pheno-name</span> LDL <span class="dt">\</span></span>
-<span id="cb42-5"><a href="gwas-2---association-analysis.html#cb42-5" tabindex="-1"></a>  <span class="at">--linear</span> <span class="at">--adjust</span> <span class="dt">\</span></span>
-<span id="cb42-6"><a href="gwas-2---association-analysis.html#cb42-6" tabindex="-1"></a>  <span class="at">--out</span> LDL</span></code></pre></div>
+<div id="linear-regression-without-adjustment" class="section level4 hasAnchor" number="2.2.3.1">
+<h4><span class="header-section-number">2.2.3.1</span> Linear regression WITHOUT adjustment<a href="gwas-2---association-analysis.html#linear-regression-without-adjustment" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb43"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb43-1"><a href="gwas-2---association-analysis.html#cb43-1" tabindex="-1"></a><span class="ex">~/plink</span> <span class="at">--bfile</span> chrAll.ASA.afterSampleQC.afterVariantQC <span class="dt">\</span></span>
+<span id="cb43-2"><a href="gwas-2---association-analysis.html#cb43-2" tabindex="-1"></a>  <span class="at">--chr</span> 1-22,X,XY <span class="dt">\</span></span>
+<span id="cb43-3"><a href="gwas-2---association-analysis.html#cb43-3" tabindex="-1"></a>  <span class="at">--pheno</span> CAD_LDL.pheno <span class="dt">\</span></span>
+<span id="cb43-4"><a href="gwas-2---association-analysis.html#cb43-4" tabindex="-1"></a>  <span class="at">--pheno-name</span> LDL <span class="dt">\</span></span>
+<span id="cb43-5"><a href="gwas-2---association-analysis.html#cb43-5" tabindex="-1"></a>  <span class="at">--linear</span> <span class="at">--adjust</span> <span class="dt">\</span></span>
+<span id="cb43-6"><a href="gwas-2---association-analysis.html#cb43-6" tabindex="-1"></a>  <span class="at">--out</span> LDL</span></code></pre></div>
 <p>By default, sex is automatically added as a covariate for all X chromosome SNPs but not anywhere else. The <code>--adjust</code> option generates an <code>.adjusted</code> file with basic multiple testing corrections (e.g. FDR) for the raw p-values. It also estimates the genomic control factor (lambda) from the data.</p>
 <p>📕 <strong>Q10:</strong> Which SNP is the top SNP? What is the p-value? Which allele increases LDL level? Which allele decreases LDL level? Can you give the effect size and the confidence interval (CI)?</p>
 ❓ <strong>Q.</strong> What is the lamda? Does it indicate inflation of the association statistics?
@@ -273,11 +322,11 @@ Answer
 </details>
 <p><br>
 - Plot the manhattan plot to visualize the association results</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb43-1"><a href="gwas-2---association-analysis.html#cb43-1" tabindex="-1"></a><span class="co"># Rscript practical3.manhattanPlot.R &lt;assoc_file&gt; &lt;outpu_prefix&gt;</span></span>
-<span id="cb43-2"><a href="gwas-2---association-analysis.html#cb43-2" tabindex="-1"></a><span class="ex">Rscript</span> practical3.manhattanPlot.R LDL.assoc.linear manhattanPlot.LDL</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb44-1"><a href="gwas-2---association-analysis.html#cb44-1" tabindex="-1"></a><span class="co"># Rscript practical3.manhattanPlot.R &lt;assoc_file&gt; &lt;outpu_prefix&gt;</span></span>
+<span id="cb44-2"><a href="gwas-2---association-analysis.html#cb44-2" tabindex="-1"></a><span class="ex">Rscript</span> practical3.manhattanPlot.R LDL.assoc.linear manhattanPlot.LDL</span></code></pre></div>
 </div>
-<div id="linear-regression-adjusted-for-age" class="section level4 hasAnchor" number="2.2.2.2">
-<h4><span class="header-section-number">2.2.2.2</span> Linear regression adjusted for age<a href="gwas-2---association-analysis.html#linear-regression-adjusted-for-age" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="linear-regression-adjusted-for-age" class="section level4 hasAnchor" number="2.2.3.2">
+<h4><span class="header-section-number">2.2.3.2</span> Linear regression adjusted for age<a href="gwas-2---association-analysis.html#linear-regression-adjusted-for-age" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>To adjust for confounding factor(s), you can use <code>--covar &lt;filename&gt;</code> to specify the covariate file, i.e. <code>CAD_LDL.pheno</code> in this example. The covariate(s) used for adjustment is specified through <code>--covar-name</code>.</p>
 <pre><code>~/plink --bfile chrAll.ASA.afterSampleQC.afterVariantQC \
   --chr 1-22,X,XY \
@@ -292,10 +341,10 @@ Answer
 <ul>
 <li>Plot the association results without adjustment of age and compare it with the previous one without adjustment</li>
 </ul>
-<div class="sourceCode" id="cb44"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb44-1"><a href="gwas-2---association-analysis.html#cb44-1" tabindex="-1"></a><span class="ex">Rscript</span> practical3.manhattanPlot.R LDL.adj-AGE.assoc.linear manhattanPlot.LDL.adj-AGE</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb45-1"><a href="gwas-2---association-analysis.html#cb45-1" tabindex="-1"></a><span class="ex">Rscript</span> practical3.manhattanPlot.R LDL.adj-AGE.assoc.linear manhattanPlot.LDL.adj-AGE</span></code></pre></div>
 </div>
-<div id="logistic-regression-with-and-without-adjusting-for-age-to-test-for-association-with-cad" class="section level4 hasAnchor" number="2.2.2.3">
-<h4><span class="header-section-number">2.2.2.3</span> Logistic regression with and without adjusting for age to test for association with CAD<a href="gwas-2---association-analysis.html#logistic-regression-with-and-without-adjusting-for-age-to-test-for-association-with-cad" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="logistic-regression-with-and-without-adjusting-for-age-to-test-for-association-with-cad" class="section level4 hasAnchor" number="2.2.3.3">
+<h4><span class="header-section-number">2.2.3.3</span> Logistic regression with and without adjusting for age to test for association with CAD<a href="gwas-2---association-analysis.html#logistic-regression-with-and-without-adjusting-for-age-to-test-for-association-with-cad" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>We can also use PLINK to perform association test to test for association with binary trait, CAD</li>
 </ul>
@@ -309,15 +358,15 @@ Answer
 <h3><span class="header-section-number">2.3.1</span> LocusZoom<a href="gwas-2---association-analysis.html#locuszoom" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><a href="https://statgen.github.io/localzoom/">LocalZoom</a> (<a href="https://statgen.github.io/localzoom/" class="uri">https://statgen.github.io/localzoom/</a>) is a tool for generating regional association plot via web browser or offline. For the web-based js version without uploading the summary statistics, a tabix-indexed tab-delimited text file is needed. If you are comfortable uploading your data to a server, you can consider using the my.locuszoom.org upload service with more custom function.</p>
 <p>Please noted that both the reference (Ref) and alternative (Alt) alleles are needed for visualizing the LD. For simplicity, we use A1 as the alternative allele and A2 as the reference allele here. You will usually flip to the reference strand and get the right Ref/Alt alleles after imputation.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb45-1"><a href="gwas-2---association-analysis.html#cb45-1" tabindex="-1"></a><span class="co"># (i) convert &quot;fixed width&quot; PLINK association result format to &quot;tab-delimited&quot;</span></span>
-<span id="cb45-2"><a href="gwas-2---association-analysis.html#cb45-2" tabindex="-1"></a><span class="co"># (ii) add the A2 allele (specifying the right Ref and Alt alleles are needed for LD plot)</span></span>
-<span id="cb45-3"><a href="gwas-2---association-analysis.html#cb45-3" tabindex="-1"></a><span class="fu">awk</span> <span class="st">&#39;BEGIN { OFS=&quot;\t&quot;; a2[&quot;SNP&quot;]=&quot;A2&quot; } NR==FNR { a2[$2]=$6 } NR!=FNR { $4=$4&quot;\t&quot;a2[$2]; if (FNR!=1) $2=$1&quot;:&quot;$3; print }&#39;</span> <span class="dt">\</span></span>
-<span id="cb45-4"><a href="gwas-2---association-analysis.html#cb45-4" tabindex="-1"></a> chrAll.ASA.afterSampleQC.afterVariantQC.bim <span class="dt">\</span></span>
-<span id="cb45-5"><a href="gwas-2---association-analysis.html#cb45-5" tabindex="-1"></a> LDL.adj-AGE.assoc.linear <span class="kw">|</span> <span class="dt">\</span></span>
-<span id="cb45-6"><a href="gwas-2---association-analysis.html#cb45-6" tabindex="-1"></a> <span class="ex">bgzip</span> <span class="op">&gt;</span> LDL.adj-AGE.assoc.linear.forLocuszoom.gz</span>
-<span id="cb45-7"><a href="gwas-2---association-analysis.html#cb45-7" tabindex="-1"></a> </span>
-<span id="cb45-8"><a href="gwas-2---association-analysis.html#cb45-8" tabindex="-1"></a><span class="co"># (iii) index the association file</span></span>
-<span id="cb45-9"><a href="gwas-2---association-analysis.html#cb45-9" tabindex="-1"></a><span class="ex">tabix</span> <span class="at">-s</span> 1 <span class="at">-b</span> 3 <span class="at">-e</span> 3 <span class="at">--skip-lines</span> 1 <span class="at">-f</span> LDL.adj-AGE.assoc.linear.forLocuszoom.gz</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb46-1"><a href="gwas-2---association-analysis.html#cb46-1" tabindex="-1"></a><span class="co"># (i) convert &quot;fixed width&quot; PLINK association result format to &quot;tab-delimited&quot;</span></span>
+<span id="cb46-2"><a href="gwas-2---association-analysis.html#cb46-2" tabindex="-1"></a><span class="co"># (ii) add the A2 allele (specifying the right Ref and Alt alleles are needed for LD plot)</span></span>
+<span id="cb46-3"><a href="gwas-2---association-analysis.html#cb46-3" tabindex="-1"></a><span class="fu">awk</span> <span class="st">&#39;BEGIN { OFS=&quot;\t&quot;; a2[&quot;SNP&quot;]=&quot;A2&quot; } NR==FNR { a2[$2]=$6 } NR!=FNR { $4=$4&quot;\t&quot;a2[$2]; if (FNR!=1) $2=$1&quot;:&quot;$3; print }&#39;</span> <span class="dt">\</span></span>
+<span id="cb46-4"><a href="gwas-2---association-analysis.html#cb46-4" tabindex="-1"></a> chrAll.ASA.afterSampleQC.afterVariantQC.bim <span class="dt">\</span></span>
+<span id="cb46-5"><a href="gwas-2---association-analysis.html#cb46-5" tabindex="-1"></a> LDL.adj-AGE.assoc.linear <span class="kw">|</span> <span class="dt">\</span></span>
+<span id="cb46-6"><a href="gwas-2---association-analysis.html#cb46-6" tabindex="-1"></a> <span class="ex">bgzip</span> <span class="op">&gt;</span> LDL.adj-AGE.assoc.linear.forLocuszoom.gz</span>
+<span id="cb46-7"><a href="gwas-2---association-analysis.html#cb46-7" tabindex="-1"></a> </span>
+<span id="cb46-8"><a href="gwas-2---association-analysis.html#cb46-8" tabindex="-1"></a><span class="co"># (iii) index the association file</span></span>
+<span id="cb46-9"><a href="gwas-2---association-analysis.html#cb46-9" tabindex="-1"></a><span class="ex">tabix</span> <span class="at">-s</span> 1 <span class="at">-b</span> 3 <span class="at">-e</span> 3 <span class="at">--skip-lines</span> 1 <span class="at">-f</span> LDL.adj-AGE.assoc.linear.forLocuszoom.gz</span></code></pre></div>
 <ul>
 <li><p>First, make sure that <code>GWAS</code> and the right genome assembly are chosen, i.e. <code>GRCh37</code> for this example dataset
 <img src="https://user-images.githubusercontent.com/8644480/171670740-86b20b26-cc20-4512-81cc-d43940be970c.png" width=800></p></li>

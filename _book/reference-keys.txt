@@ -18,6 +18,7 @@ variant-qc
 gwas-2---association-analysis
 objectives-1
 association-analysis
+prequisites
 phenotype-data
 association-test-regression
 linear-regression-without-adjustment
