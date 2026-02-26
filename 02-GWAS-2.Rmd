@@ -4,6 +4,32 @@
 In this practical, you will learn how to perform the association analysis and the post-GWAS analysis for data interpretation.
 
 ## Association Analysis
+### Prequisites
+We will start with the dataset of 480,780 variants for 992 samples passing QC from the previous **Sample array QC** practical. To ensure that we are using the same dataset, let's check the md5sum of these PLINK files
+
+<pre><code>md5sum <b>chrAll.ASA.afterSampleQC.afterVariantQC.*</b>
+</code></pre>
+
+| Md5sum                           | File                                        |
+| -------------------------------- |---------------------------------------------|
+| 7c6619616f0391886b41bd54eb340ee9 | chrAll.ASA.afterSampleQC.afterVariantQC.bed |
+| dd8f8e4c40207a8b5aff1ec60c25fe83 | chrAll.ASA.afterSampleQC.afterVariantQC.bim |
+| 798746e8bcc2c18110dac62ee78ff602 | chrAll.ASA.afterSampleQC.afterVariantQC.fam |
+ 
++ If the md5sum values are consistent, you can copy the PLINK binary files to a new folder and named the new folder as `associationtest`
+<pre><code>mkdir ../associationtest
+cd ../associationtest
+cp ../gwas/chrAll.ASA.afterSampleQC.afterVariantQC.* .
+</code></pre>
+Otherwise, you can download the whole dataset passing QC from the github
+<details>
+ <summary>Code to copy</summary>
+ 
+```bash
+wget https://github.com/claratsm/HTI5802_Algorithms-in-Bioinformatics-and-Genomics/raw/main/Practical/chrAll.ASA.afterSampleQC.afterVariantQC.tar.gz 
+tar -zxvf chrAll.ASA.afterSampleQC.afterVariantQC.tar.gz
+```
+
 ### Phenotype Data 
 Besides the 6th column in PLINK .ped and .fam file, you can use another phenotype file via the command of `--pheno [filename]` in PLINK.
 

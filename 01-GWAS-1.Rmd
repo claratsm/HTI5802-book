@@ -422,7 +422,7 @@ Rscript practical2.PCAplot.R merged.chrAll.ASA.1000G.rm-mind02_related.pruned.ei
   
   ```bash
   cut -d' ' -f 2 chrAll.ASA.fam > chrAll.ASA.iid
-  awk '$3<0.015' merged.chrAll.ASA.1000G.rm-mind02_related.pruned.eigenvec | egrep -f chrAll.ASA.iid
+  awk '$3<0.017' merged.chrAll.ASA.1000G.rm-mind02_related.pruned.eigenvec | egrep -f chrAll.ASA.iid
   cat to-remove.het3D.iid
   ```
 </details>  
