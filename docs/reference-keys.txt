@@ -17,8 +17,9 @@ population-outliers
 variant-qc
 gwas-2---association-analysis
 objectives-1
-association-analysis
 prequisites
+dataset-1
+association-analysis
 phenotype-data
 association-test-regression
 linear-regression-without-adjustment
